@@ -1,0 +1,22 @@
+{
+    "name": "sugiphp/cache",
+    "type": "library",
+    "description": "SugiPHP Cache Component",
+    "keywords": ["cache", "sugiphp", "apc", "memcache"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Plamen Popov",
+            "email": "tzappa@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { 
+            "SugiPHP\\Cache\\": "" 
+        }
+    },
+    "target-dir": "SugiPHP/Cache"
+}
