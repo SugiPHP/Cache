@@ -1,0 +1,61 @@
+<?php
+/**
+ * @package    SugiPHP
+ * @subpackage Cache
+ * @category   tests
+ * @author     Plamen Popov <tzappa@gmail.com>
+ * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ */
+
+use SugiPHP\Cache\ArrayStore as Store;
+
+class ArrayStoreTest extends PHPUnit_Framework_TestCase
+{
+	public static $store;
+
+	public static function setUpBeforeClass()
+	{
+		static::$store = new Store();
+	}
+
+	public function setUp()
+	{
+		static::$store->delete("phpunittestkey");
+	}
+
+	public function testCheckInstance()
+	{
+		$this->assertInstanceOf("\SugiPHP\Cache\StoreInterface", static::$store);
+	}
+
+	public function testReturnsNullWhenNotFound()
+	{
+		$this->assertSame(null, static::$store->get("phpunittestkey"));
+	}
+
+	public function testSet()
+	{
+		$this->assertSame(true, static::$store->set("phpunittestkey", "phpunittestvalue"));
+	}
+
+	public function testHas()
+	{
+		$this->assertSame(false, static::$store->has("phpunittestkey"));
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		$this->assertSame(true, static::$store->has("phpunittestkey"));
+	}
+
+	public function testGet()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+	}
+
+	public function testFlush()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		$this->assertSame(true, static::$store->has("phpunittestkey"));
+		static::$store->flush();
+		$this->assertSame(false, static::$store->has("phpunittestkey"));
+	}
+}

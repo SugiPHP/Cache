@@ -1,10 +1,12 @@
-<?php namespace SugiPHP\Cache;
+<?php
 /**
  * @package    SugiPHP
  * @subpackage Cache
  * @author     Plamen Popov <tzappa@gmail.com>
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
+
+namespace SugiPHP\Cache;
 
 /**
  * Cache Store Interface
