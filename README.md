@@ -41,3 +41,14 @@ $cache->delete("key");
 ```
 $cache->has("key"); // will return TRUE if the "key" was set and the expiration time was not passed, and FALSE otherwise
 ```
+
+Installation
+------------
+
+Add the package to your composer.json file
+
+```
+"require": {
+    "sugiphp/cache": "dev-master"
+}
+```

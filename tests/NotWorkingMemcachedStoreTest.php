@@ -7,20 +7,15 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-use SugiPHP\Cache\ArrayStore as Store;
+use SugiPHP\Cache\MemcachedStore as Store;
 
-class ArrayStoreTest extends PHPUnit_Framework_TestCase
+class NotWorkingMemcachedStoreTest extends PHPUnit_Framework_TestCase
 {
 	public static $store;
 
 	public static function setUpBeforeClass()
 	{
-		static::$store = new Store();
-	}
-
-	public function setUp()
-	{
-		static::$store->delete("phpunittestkey");
+		static::$store = new Store(new Memcached());
 	}
 
 	public function testCheckInstance()
@@ -33,35 +28,36 @@ class ArrayStoreTest extends PHPUnit_Framework_TestCase
 		$this->assertNull(static::$store->get("phpunittestkey"));
 	}
 
-	public function testSet()
-	{
-		$this->assertTrue(static::$store->set("phpunittestkey", "phpunittestvalue"));
-	}
-
-	public function testHas()
+	public function testHasReturnsFalseIfNotFound()
 	{
 		$this->assertFalse(static::$store->has("phpunittestkey"));
-		static::$store->set("phpunittestkey", "phpunittestvalue");
-		$this->assertTrue(static::$store->has("phpunittestkey"));
+	}
+
+	public function testDeleteReturnsNullIfNotFound()
+	{
+		$this->assertNull(static::$store->delete("phpunittestkey"));
+	}
+
+	public function testSet()
+	{
+		$this->assertFalse(static::$store->set("phpunittestkey", "phpunittestvalue"));
 	}
 
 	public function testGet()
 	{
 		static::$store->set("phpunittestkey", "phpunittestvalue");
-		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+		$this->assertNull(static::$store->get("phpunittestkey"));
 	}
 
-	public function testDelete()
+	public function testHas()
 	{
 		static::$store->set("phpunittestkey", "phpunittestvalue");
-		static::$store->delete("phpunittestkey");
-		$this->assertNull(static::$store->get("phpunittestkey"));
+		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
 
 	public function testFlush()
 	{
 		static::$store->set("phpunittestkey", "phpunittestvalue");
-		$this->assertTrue(static::$store->has("phpunittestkey"));
 		static::$store->flush();
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
