@@ -28,6 +28,40 @@ class MemcachedStore implements StoreInterface
 	}
 
 	/**
+	 * Creates MemcacheStore instance
+	 * 
+	 * @param  array $config Server Configurations
+	 * @return MemcacheStore
+	 */
+	public static function factory(array $config = array())
+	{
+		$memcached = new Memcached();
+
+		// empty config
+		if (empty($config)) {
+			$host = "127.0.0.1";
+			$port = 11211;
+			
+			$memcached->addServer($host, $port);
+		} elseif (count($config) == 1) {
+			// only one server
+			$server = $config[0];
+			$host = empty($server["host"]) ? "127.0.0.1" : $server["host"];
+			$port = empty($server["port"]) ? 11211 : $server["port"];
+			$weight = empty($server["weight"]) ? 1 : $server["weight"];
+
+			$memcached->addServer($host, $port, $weight);		
+		} else {
+			// multiple servers
+			$memcached->addServers($config);
+		}
+
+		// The code using a store should work no matter if the store is running or not
+		// Check is the memcache store is working with checkRunning() method
+		return new MemcachedStore($memcached);
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	function set($key, $value, $ttl = 0)
@@ -78,7 +112,6 @@ class MemcachedStore implements StoreInterface
 	}
 
 
-
 	/**
 	 * Checks is the memcache server is running
 	 * 
@@ -102,43 +135,6 @@ class MemcachedStore implements StoreInterface
 	
 		return false;
 	}
-
-
-
-	// /**
-	//  * Creates MemcacheStore instance
-	//  * 
-	//  * @param  array $config Server Configurations
-	//  * @return MemcacheStore
-	//  */
-	// public static function factory(array $config = array())
-	// {
-	// 	$memcached = new \Memcached();
-
-	// 	// empty config
-	// 	if (empty($config)) {
-	// 		$host = "127.0.0.1";
-	// 		$port = 11211;
-	// 		$weight = 1;
-			
-	// 		$memcached->addServer($host, $port, $weight);		
-	// 	} elseif (count($config) == 1) {
-	// 		// only one server
-	// 		$server = $config[0];
-	// 		$host = empty($server["host"]) ? "127.0.0.1" : $server["host"];
-	// 		$port = empty($server["port"]) ? 11211 : $server["port"];
-	// 		$weight = empty($server["weight"]) ? 1 : $server["weight"];
-
-	// 		$memcached->addServer($host, $port, $weight);		
-	// 	} else {
-	// 		// multiple servers
-	// 		$memcached->addServers($config);
-	// 	}
-
-	// 	// The code using a store should work no matter if the store is running or not
-	// 	// Check is the memcache store is working with checkRunning() method
-	// 	return new MemcachedStore($memcached);
-	// }
 
 	// public function inc($key, $offset = 1, $defaultValue = 0, $ttl = 0)
 	// {
