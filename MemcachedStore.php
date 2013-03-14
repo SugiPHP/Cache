@@ -136,15 +136,8 @@ class MemcachedStore implements StoreInterface
 		return false;
 	}
 
-	// public function inc($key, $offset = 1, $defaultValue = 0, $ttl = 0)
+	// public function inc($key, $step = 1)
 	// {
-	// 	$inc = $this->memcached->increment($key, $offset);
-	// 	// there was no key, or on some other error
-	// 	if ($inc === false) {
-	// 		// we need custom initial value to be set
-	// 		return ($this->set($key, $defaultValue, $ttl) === false) ? false : $defaultValue;
-	// 	}
-
-	// 	return $inc;
+	// 	return $this->memcached->increment($key, $step);
 	// }
 }

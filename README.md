@@ -19,28 +19,37 @@ Usage
 
 Caching is done by setting a key-value pairs in a store. 
 
-- Store a value in a cache
+Store a value in a cache
 ```
 $cache->set("key", "value", 60); // store a value for 60 seconds
 // or
 $cache->set("foo", "bar"); // store a value for a maximum allowed time
 ```
 
-- Retrieve value from the cache
+Retrieve value from the cache
 ```
 $cache->get("key"); // this will return "value" if 60 seconds are not passed and NULL after that
 $cache->get("baz"); // will return NULL
 ```
 
-- Delete a value
+Delete a value
 ```
 $cache->delete("key");
 ```
 
-- Check value is set
+Check value is set
 ```
 $cache->has("key"); // will return TRUE if the "key" was set and the expiration time was not passed, and FALSE otherwise
 ```
+
+Increment / decrement value
+```
+$cache->set("num", 1); // store a numeric value
+$cache->inc("num"); // will return 2
+$cache->inc("num", 10); // will return 12
+$cache->dec("num"); // will return 11
+```
+
 
 Installation
 ------------

@@ -107,4 +107,28 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		static::$store->flush();
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
+
+	public function testInc()
+	{
+		// returns false on failure
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		// increments
+		static::$store->set("phpunittestkey", 7);
+		$this->assertEquals(8, static::$store->inc("phpunittestkey"));
+		$this->assertEquals(10, static::$store->inc("phpunittestkey", 2));
+	}
+
+	public function testDec()
+	{
+		// returns false on failure
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		// increments
+		static::$store->set("phpunittestkey", 7);
+		$this->assertEquals(6, static::$store->dec("phpunittestkey"));
+		$this->assertEquals(4, static::$store->dec("phpunittestkey", 2));
+	}
 }

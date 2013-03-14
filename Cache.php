@@ -76,4 +76,48 @@ class Cache
 	{
 		$this->driver->flush();
 	}
+
+	/**
+	 * Increment numeric item's value.
+	 * If there is no such key or the stored value is not numeric FALSE is returned
+	 * 
+	 * @param  string $key
+	 * @param  integer $step
+	 * @return integer or FALSE on failure
+	 */
+	public function inc($key, $step = 1)
+	{
+		if ($this->driver instanceof IncrementorInterface) {
+			return $this->driver->inc($key, $step);
+		}
+
+		$value = $this->driver->get($key);
+		if (is_null($value) or !is_numeric($value)) {
+			return false;
+		}
+
+		return $this->driver->set($key, $value + $step);
+	}
+
+	/**
+	 * Decrements numeric item's value.
+	 * If there is no such key or the stored value is not numeric FALSE is returned
+	 * 
+	 * @param  string $key
+	 * @param  integer $step
+	 * @return integer or FALSE on failure
+	 */
+	public function dec($key, $step = 1)
+	{
+		if ($this->driver instanceof IncrementorInterface) {
+			return $this->driver->dec($key, $step);
+		}
+
+		$value = $this->driver->get($key);
+		if (is_null($value) or !is_numeric($value)) {
+			return false;
+		}
+
+		return $this->driver->set($key, $value - $step);
+	}
 }
