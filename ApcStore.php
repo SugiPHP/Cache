@@ -8,13 +8,13 @@
 
 namespace SugiPHP\Cache;
 
-class ApcStore implements StoreInterface
+class ApcStore implements StoreInterface, IncrementorInterface
 {
 	// for some optimization reasons in APC it does not invalidate
-	// data on same request. @see  https://bugs.php.net/bug.php?id=58084
+	// data on same request. @see https://bugs.php.net/bug.php?id=58084
 	// To fix this behavior we'll use cache to store items along with timestamps
 	protected $ttls = array();
-	protected $ttlFix = false;
+	public $ttlFix = false;
 
 	public function __construct(array $config = array())
 	{
@@ -103,6 +103,22 @@ class ApcStore implements StoreInterface
 				unset($this->ttls);
 			}
 		}
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	function inc($key, $step = 1)
+	{
+		return apc_inc($key, $step);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	function dec($key, $step = 1)
+	{
+		return apc_dec($key, $step);
 	}
 
 	/**

@@ -105,4 +105,52 @@ class ApcStoreTest extends PHPUnit_Framework_TestCase
 		static::$store->flush();
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
+
+	public function testIncNonExisting()
+	{
+		// returns false
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		// check increment does not set value
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+
+	public function testIncNonNumeric()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		// returns false on non numeric values
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		// does not modifies value
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+	}
+
+	public function testInc()
+	{
+		static::$store->set("phpunittestkey", 7);
+		$this->assertEquals(8, static::$store->inc("phpunittestkey"));
+		$this->assertEquals(10, static::$store->inc("phpunittestkey", 2));
+	}
+
+	public function testDecNonExisting()
+	{
+		// returns false
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		// check increment does not set value
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+
+	public function testDecNonNumeric()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		// returns false on non numeric values
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		// does not modifies value
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+	}
+
+	public function testDec()
+	{
+		static::$store->set("phpunittestkey", 7);
+		$this->assertEquals(6, static::$store->dec("phpunittestkey"));
+		$this->assertEquals(4, static::$store->dec("phpunittestkey", 2));
+	}
 }

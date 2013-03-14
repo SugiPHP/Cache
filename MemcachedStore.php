@@ -10,12 +10,19 @@ namespace SugiPHP\Cache;
 
 use Memcached;
 
-class MemcachedStore implements StoreInterface
+class MemcachedStore implements StoreInterface, IncrementorInterface
 {
 	/**
 	 * Memcached instance
 	 */
 	protected $memcached;
+
+	/**
+	 * Fix bug in memcached PHP module
+	 * @see https://bugs.php.net/bug.php?id=51434
+	 * @var boolean
+	 */
+	public $bug51434fix = true;
 
 	/**
 	 * Creates a Memcached store
@@ -111,6 +118,43 @@ class MemcachedStore implements StoreInterface
 		$this->memcached->flush();
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	function inc($key, $step = 1)
+	{
+		// due to a bug in memcached PHP module 
+		// https://bugs.php.net/bug.php?id=51434
+		// we'll check if the $key has a non numeric value
+		if ($this->bug51434fix) {
+			$value = $this->get($key);
+			if (is_null($value) or !is_numeric($value)) {
+				return false;
+			}
+		}
+		$val = $this->memcached->increment($key, $step);
+		// on some servers it will return 0 instead of FALSE
+		return ($val) ? $val : false;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	function dec($key, $step = 1)
+	{
+		// due to a bug in memcached PHP module 
+		// https://bugs.php.net/bug.php?id=51434
+		// we'll check if the $key has a non numeric value
+		if ($this->bug51434fix) {
+			$value = $this->get($key);
+			if (is_null($value) or !is_numeric($value)) {
+				return false;
+			}
+		}
+		$val = $this->memcached->decrement($key, $step);
+		// on some servers it will return 0 instead of FALSE
+		return ($val) ? $val : false;
+	}
 
 	/**
 	 * Checks is the memcache server is running
@@ -135,9 +179,4 @@ class MemcachedStore implements StoreInterface
 	
 		return false;
 	}
-
-	// public function inc($key, $step = 1)
-	// {
-	// 	return $this->memcached->increment($key, $step);
-	// }
 }

@@ -9,8 +9,6 @@
 
 use SugiPHP\Cache\Cache;
 use SugiPHP\Cache\ArrayStore;
-use SugiPHP\Cache\ApcStore;
-use SugiPHP\Cache\MemcachedStore;
 
 class CacheTest extends PHPUnit_Framework_TestCase
 {
@@ -18,9 +16,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
 
 	public static function setUpBeforeClass()
 	{
-		// static::$store = new Cache(new ArrayStore());
-		// static::$store = new Cache(new ApcStore());
-		static::$store = new Cache(MemcachedStore::factory());
+		static::$store = new Cache(new ArrayStore());
 	}
 
 	public function setUp()
@@ -62,33 +58,9 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey", "default"));
 	}
 
-	public function testNegativeTTL()
-	{
-		static::$store->set("phpunittestkey", "phpunittestvalue", -1);
-		$this->assertNull(static::$store->get("phpunittestkey"));
-	}
-
-	public function testTTL()
-	{
-		static::$store->set("phpunittestkey", "phpunittestvalue", 1);
-		$this->assertTrue(static::$store->has("phpunittestkey"));
-		sleep(1);
-		$this->assertFalse(static::$store->has("phpunittestkey"));
-	}
-
-	public function testTTLNotExpire()
-	{
-		static::$store->set("phpunittestkey", "phpunittestvalue", 2);
-		$this->assertTrue(static::$store->has("phpunittestkey"));
-		sleep(1);
-		$this->assertTrue(static::$store->has("phpunittestkey"));
-	}
-
 	public function testHas()
 	{
-		static::$store->set("phpunittestkey", "phpunittestvalue", -1);
-		$this->assertFalse(static::$store->has("phpunittestkey"));
-		static::$store->set("phpunittestkey", "phpunittestvalue", 1);
+		static::$store->set("phpunittestkey", "phpunittestvalue");
 		$this->assertTrue(static::$store->has("phpunittestkey"));
 	}
 
@@ -108,25 +80,49 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
 
+	public function testIncNonExisting()
+	{
+		// returns false
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		// check increment does not set value
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+
+	public function testIncNonNumeric()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		// returns false on non numeric values
+		$this->assertFalse(static::$store->inc("phpunittestkey"));
+		// does not modifies value
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+	}
+
 	public function testInc()
 	{
-		// returns false on failure
-		$this->assertFalse(static::$store->inc("phpunittestkey"));
-		static::$store->set("phpunittestkey", "phpunittestvalue");
-		$this->assertFalse(static::$store->inc("phpunittestkey"));
-		// increments
 		static::$store->set("phpunittestkey", 7);
 		$this->assertEquals(8, static::$store->inc("phpunittestkey"));
 		$this->assertEquals(10, static::$store->inc("phpunittestkey", 2));
 	}
 
+	public function testDecNonExisting()
+	{
+		// returns false
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		// check increment does not set value
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+
+	public function testDecNonNumeric()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		// returns false on non numeric values
+		$this->assertFalse(static::$store->dec("phpunittestkey"));
+		// does not modifies value
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+	}
+
 	public function testDec()
 	{
-		// returns false on failure
-		$this->assertFalse(static::$store->dec("phpunittestkey"));
-		static::$store->set("phpunittestkey", "phpunittestvalue");
-		$this->assertFalse(static::$store->dec("phpunittestkey"));
-		// increments
 		static::$store->set("phpunittestkey", 7);
 		$this->assertEquals(6, static::$store->dec("phpunittestkey"));
 		$this->assertEquals(4, static::$store->dec("phpunittestkey", 2));
