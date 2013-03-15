@@ -35,10 +35,10 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * Creates MemcacheStore instance
+	 * Creates MemcachedStore instance
 	 * 
 	 * @param  array $config Server Configurations
-	 * @return MemcacheStore
+	 * @return MemcachedStore
 	 */
 	public static function factory(array $config = array())
 	{
