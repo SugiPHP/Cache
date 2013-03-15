@@ -1,8 +1,8 @@
 Cache
 =====
 
-SugiPHP cache component provides a simple and unified API for several caching systems like APC and Memcached.
-Future versions will include support for file based and DB stores.
+SugiPHP cache component provides a simple and unified API for several caching systems like APC, Memcached and 
+file based cache. Future versions will include support for DB stores.
 
 One of the most important features of the caching systems is invalidating items after a specified period of time.
 This will give you the ability to cache some time consuming queries like the total number of adverts in your site,
