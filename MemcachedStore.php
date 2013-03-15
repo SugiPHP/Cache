@@ -71,6 +71,14 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
+	function add($key, $value, $ttl = 0)
+	{
+		return $this->memcached->add($key, $value, $ttl);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	function set($key, $value, $ttl = 0)
 	{
 		return $this->memcached->set($key, $value, $ttl);

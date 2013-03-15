@@ -28,6 +28,22 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
+	function add($key, $value, $ttl = 0)
+	{
+		$res = apc_add($key, $value, $ttl);
+		if ($this->ttlFix) {
+			unset($this->ttls[$key]);
+			// fixing ttl only if it is set
+			if ($res and $ttl) {
+				$this->ttls[$key] = microtime(true) + $ttl;
+			}
+		}
+		return $res;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	function set($key, $value, $ttl = 0)
 	{
 		$res = apc_store($key, $value, $ttl);

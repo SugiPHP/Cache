@@ -23,7 +23,22 @@ class Cache
 	}
 
 	/**
+	 * Stores an item in the cache for a specified period of time only if it is not already stored.
+	 * Cache::add() is similar to Cache::set(), but the operation fails if the key already exists.
+	 * 
+	 * @param  string  $key
+	 * @param  mixed  $value The value to be stored.
+	 * @param  integer $ttl Time to live in seconds. 0 means to store it for a maximum time possible
+	 * @return boolean TRUE if the value is set, FALSE on failure
+	 */
+	public function add($key, $value, $ttl = 0)
+	{
+		return $this->driver->add($key, $value, $ttl);
+	}
+
+	/**
 	 * Stores an item in the data store
+	 * Cache::set() is similar to Cache::add(), but the operation will not fail if the key already exist.
 	 * 
 	 * @param  string $key The key under which to store the value
 	 * @param  mixed $value The value to store

@@ -20,6 +20,18 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
+	function add($key, $value, $ttl = 0)
+	{
+		if ($this->has($key)) {
+			return false;
+		}
+		$this->store[$key] = $value;
+		return true;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	function set($key, $value, $ttl = 0)
 	{
 		$this->store[$key] = $value;

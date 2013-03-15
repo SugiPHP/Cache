@@ -17,17 +17,24 @@ code will still work on some development or testing environments where no cache 
 Usage
 -----
 
-Caching is done by setting a key-value pairs in a store. 
+Caching is done by setting a key-value pairs in a store.
+
 
 Store a value in a cache
 ```
-$cache->set("key", "value", 60); // store a value for 60 seconds
-// or
-$cache->set("foo", "bar"); // store a value for a maximum allowed time
+$cache->set("foo", "bar");    // store a value for a maximum allowed time
+$cache->set("foo", "foobar"); // store a new value with the same key
+```
+
+Add a value if it is not already been stored
+```
+$cache->add("key", "foo");    // this will store a value
+$cache->add("key", "foobar"); // this will fail
 ```
 
 Retrieve value from the cache
 ```
+$cache->set("key", "value", 60); // store a value for 60 seconds
 $cache->get("key"); // this will return "value" if 60 seconds are not passed and NULL after that
 $cache->get("baz"); // will return NULL
 ```

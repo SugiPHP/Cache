@@ -15,7 +15,19 @@ interface StoreInterface
 {
 
 	/**
+	 * Stores an item in the cache for a specified period of time only if it is not already stored.
+	 * StoreInterface::add() is similar to StoreInterface::set(), but the operation fails if the key already exists.
+	 * 
+	 * @param  string  $key
+	 * @param  mixed  $value The value to be stored.
+	 * @param  integer $ttl Time to live in seconds. 0 means to store it for a maximum time possible
+	 * @return boolean TRUE if the value is set, FALSE on failure
+	 */
+	function add($key, $value, $ttl = 0);
+
+	/**
 	 * Stores an item in the cache for a specified period of time.
+	 * StoreInterface::set() is similar to StoreInterface::add(), but the operation will not fail if the key already exist.
 	 *
 	 * @param  string $key 
 	 * @param  mixed $value The value to be stored.

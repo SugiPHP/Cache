@@ -80,6 +80,12 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
 
+	public function testAdd()
+	{
+		$this->assertTrue(static::$store->add("phpunittestkey", "phpunittestvalue"));
+		$this->assertFalse(static::$store->add("phpunittestkey", "phpunittestvalue2"));
+	}
+
 	public function testIncNonExisting()
 	{
 		// returns false

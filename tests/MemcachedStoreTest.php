@@ -24,7 +24,7 @@ class MemcachedStoreTest extends PHPUnit_Framework_TestCase
 		if (!static::$store->checkRunning()) {
 		 	static::markTestSkipped("Could not connect to Memcached");
 		}
-		
+
 		static::$store->bug51434fix = true;
 	}
 
@@ -108,6 +108,12 @@ class MemcachedStoreTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(static::$store->has("phpunittestkey"));
 		static::$store->flush();
 		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+	
+	public function testAdd()
+	{
+		$this->assertTrue(static::$store->add("phpunittestkey", "phpunittestvalue"));
+		$this->assertFalse(static::$store->add("phpunittestkey", "phpunittestvalue2"));
 	}
 
 	public function testIncNonExisting()
