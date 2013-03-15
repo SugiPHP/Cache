@@ -110,8 +110,9 @@ class Cache
 		if (is_null($value) or !is_numeric($value)) {
 			return false;
 		}
+		$newValue = $value + $step;
 
-		return $this->driver->set($key, $value + $step);
+		return ($this->set($key, $newValue)) ? $newValue : false;
 	}
 
 	/**
@@ -132,7 +133,8 @@ class Cache
 		if (is_null($value) or !is_numeric($value)) {
 			return false;
 		}
+		$newValue = $value - $step;
 
-		return $this->driver->set($key, $value - $step);
+		return ($this->set($key, $newValue)) ? $newValue : false;
 	}
 }
