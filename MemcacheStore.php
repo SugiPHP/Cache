@@ -41,11 +41,14 @@ class MemcacheStore implements StoreInterface
 		$host = empty($config["host"]) ? "127.0.0.1" : $config["host"];
 		$port = empty($config["port"]) ? 11211 : $config["port"];
 
-		$this->connected = $memcache->connect($host, $port);
+		$connected = $memcache->connect($host, $port);
 
 		// The code using a store should work no matter if the store is running or not
 		// Check is the memcache store is working with checkRunning() method
-		return new MemcacheStore($memcache);
+		$store = new MemcacheStore($memcache);
+		$store->connected = $connected;
+
+		return $store;
 	}
 
 	/**
