@@ -18,7 +18,7 @@ class FileStoreTest extends PHPUnit_Framework_TestCase
 		static::$store = new Store(__DIR__."/tmp");
 	}
 
-	public function setUp()
+	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
 	}

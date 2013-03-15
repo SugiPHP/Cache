@@ -18,7 +18,7 @@ class ArrayStoreTest extends PHPUnit_Framework_TestCase
 		static::$store = new Store();
 	}
 
-	public function setUp()
+	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
 	}

@@ -24,7 +24,7 @@ class ApcStoreTest extends PHPUnit_Framework_TestCase
 		}
 	}
 
-	public function setUp()
+	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
 	}

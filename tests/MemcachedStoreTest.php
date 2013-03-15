@@ -28,7 +28,7 @@ class MemcachedStoreTest extends PHPUnit_Framework_TestCase
 		static::$store->bug51434fix = true;
 	}
 
-	public function setUp()
+	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
 	}

@@ -10,16 +10,46 @@ namespace SugiPHP\Cache;
 
 class Cache
 {
+	/**
+	 * The driver used by a cache.
+	 * @var StoreInterface
+	 */
 	protected $driver;
 
 	/**
-	 * Class constructor
+	 * Key prefix to use.
+	 * @var string
+	 */
+	protected $prefix = "";
+
+	/**
+	 * Class constructor.
 	 *
 	 * @param StoreInterface $driver
 	 */
 	public function __construct(StoreInterface $driver)
 	{
 		$this->driver = $driver;
+	}
+
+	/**
+	 * Sets key prefix.
+	 * 
+	 * @param string $prefix
+	 */
+	public function setPrefix($prefix)
+	{
+		$this->prefix = $prefix;
+	}
+
+	/**
+	 * Returns key prefix.
+	 * 
+	 * @return string
+	 */
+	public function getPrefix()
+	{
+		return $this->prefix;
 	}
 
 	/**
@@ -33,6 +63,8 @@ class Cache
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
+		$key = $this->prefix.$key;
+
 		return $this->driver->add($key, $value, $ttl);
 	}
 
@@ -47,6 +79,8 @@ class Cache
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
+		$key = $this->prefix.$key;
+
 		return $this->driver->set($key, $value, $ttl);
 	}
 
@@ -58,6 +92,7 @@ class Cache
 	 */
 	public function get($key, $defaultValue = null)
 	{
+		$key = $this->prefix.$key;
 		$result = $this->driver->get($key);
 
 		return is_null($result) ? $defaultValue : $result;
@@ -71,6 +106,8 @@ class Cache
 	 */
 	public function has($key)
 	{
+		$key = $this->prefix.$key;
+
 		return $this->driver->has($key);
 	}
 
@@ -81,6 +118,8 @@ class Cache
 	 */
 	public function delete($key)
 	{
+		$key = $this->prefix.$key;
+
 		$this->driver->delete($key);
 	}
 
@@ -102,6 +141,8 @@ class Cache
 	 */
 	public function inc($key, $step = 1)
 	{
+		$key = $this->prefix.$key;
+
 		if ($this->driver instanceof IncrementorInterface) {
 			return $this->driver->inc($key, $step);
 		}
@@ -112,7 +153,7 @@ class Cache
 		}
 		$newValue = $value + $step;
 
-		return ($this->set($key, $newValue)) ? $newValue : false;
+		return ($this->driver->set($key, $newValue)) ? $newValue : false;
 	}
 
 	/**
@@ -125,6 +166,8 @@ class Cache
 	 */
 	public function dec($key, $step = 1)
 	{
+		$key = $this->prefix.$key;
+
 		if ($this->driver instanceof IncrementorInterface) {
 			return $this->driver->dec($key, $step);
 		}
@@ -135,6 +178,6 @@ class Cache
 		}
 		$newValue = $value - $step;
 
-		return ($this->set($key, $newValue)) ? $newValue : false;
+		return ($this->driver->set($key, $newValue)) ? $newValue : false;
 	}
 }

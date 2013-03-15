@@ -19,7 +19,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		static::$store = new Cache(new ArrayStore());
 	}
 
-	public function setUp()
+	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
 	}
@@ -132,5 +132,31 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		static::$store->set("phpunittestkey", 7);
 		$this->assertEquals(6, static::$store->dec("phpunittestkey"));
 		$this->assertEquals(4, static::$store->dec("phpunittestkey", 2));
+	}
+
+	public function testPrefix()
+	{
+		// set without prefix
+		static::$store->set("phpunittestkey", "phpunittestvalue");
+		// change prefix
+		static::$store->setPrefix("phpunit_");
+		// check prefix
+		$this->assertEquals("phpunit_", static::$store->getPrefix());
+		// get not existing
+		$this->assertNull(static::$store->get("phpunittestkey"));
+		// set with prefixed
+		static::$store->set("phpunittestkey", "phpunittestvalue2");
+		// check prefixed
+		$this->assertEquals("phpunittestvalue2", static::$store->get("phpunittestkey"));
+		// remove prefix
+		static::$store->setPrefix("");
+		// check prefix is empty
+		$this->assertEquals("", static::$store->getPrefix());
+		// check unprefixed key
+		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
+		// check manualy prefixing the key
+		$this->assertEquals("phpunittestvalue2", static::$store->get("phpunit_phpunittestkey"));
+		// delete prefixed
+		static::$store->delete("phpunit_phpunittestkey");
 	}
 }
