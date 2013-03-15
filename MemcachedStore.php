@@ -50,12 +50,11 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 			$port = 11211;
 			
 			$memcached->addServer($host, $port);
-		} elseif (count($config) == 1) {
+		} elseif (empty($config[0])) {
 			// only one server
-			$server = $config[0];
-			$host = empty($server["host"]) ? "127.0.0.1" : $server["host"];
-			$port = empty($server["port"]) ? 11211 : $server["port"];
-			$weight = empty($server["weight"]) ? 1 : $server["weight"];
+			$host = empty($config["host"]) ? "127.0.0.1" : $config["host"];
+			$port = empty($config["port"]) ? 11211 : $config["port"];
+			$weight = empty($config["weight"]) ? 1 : $config["weight"];
 
 			$memcached->addServer($host, $port, $weight);		
 		} else {
