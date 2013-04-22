@@ -18,5 +18,6 @@
             "SugiPHP\\Cache\\": "" 
         }
     },
-    "target-dir": "SugiPHP/Cache"
+    "target-dir": "SugiPHP/Cache",
+    "minimum-stability": "dev"
 }
