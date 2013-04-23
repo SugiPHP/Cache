@@ -70,7 +70,7 @@ Add the package to your composer.json file
 ```
 
 Settings
--------
+--------
 
 Using APC as a cache:
 
@@ -113,4 +113,36 @@ $memcached->addServer("127.0.0.1", 11211);
 // make a store
 $mcStore = new MemcachedStore($memcached);
 $cache = new Cache($mcStore);
+```
+
+NullStore and ArrayStore
+------------------------
+
+Those two classes are not real cache storages, but they are usefull on development environments 
+and for unit tests. ArrayStore caches values only for a lifetime of the script, and thus the 
+expiration time is not implemented. All store values will be flushed after the script is over.
+
+```php
+<?php
+
+use SugiPHP\Cache\Cache;
+use SugiPHP\Cache\ArrayStore;
+
+$cache = new Cache(new ArrayStore());
+```
+NullStore is actually a fake store. It is used to check your code is operational
+even if there is no cache storages available or if there is a problem with existing
+ones, e.g. no space left on the server or there is no connection with Memcached.
+Other use is when you wish your code to work without any caching for a while. Especially
+usefull on development when any caching mechanism can be a disadvantage.
+```php
+<?php
+
+use SugiPHP\Cache\Cache;
+use SugiPHP\Cache\NullStore;
+
+$cache = new Cache(new NullStore());
+
+$cache->set("foo", "bar");
+$cache->get("foo"); // will return NULL
 ```

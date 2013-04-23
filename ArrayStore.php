@@ -9,7 +9,7 @@
 namespace SugiPHP\Cache;
 
 /**
- * Array Storage
+ * Array Store
  * Main purpose of this class is to be used in unit testing.
  * Note that no expiration time is implemented! Store will be flushed after the script is over. 
  */
