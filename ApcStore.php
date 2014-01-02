@@ -86,7 +86,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		if (!apc_exists($key)) {
 			return false;
 		}
-		
+
 		if ($this->ttlFix) {
 			if (isset($this->ttls[$key]) and $this->ttls[$key] < microtime(true)) {
 				unset($this->ttls[$key]);
@@ -114,10 +114,14 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	 */
 	function flush()
 	{
-		if (apc_clear_cache("user")) {
-			if ($this->ttlFix) {
-				unset($this->ttls);
-			}
+		try {
+			apc_clear_cache("user");
+		} catch (\Exception $e) {
+			// APCu doesn't allow arguments
+			apc_clear_cache();
+		}
+		if ($this->ttlFix) {
+			unset($this->ttls);
 		}
 	}
 
@@ -139,7 +143,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 
 	/**
 	 * Checks APC is running
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function checkRunning()
