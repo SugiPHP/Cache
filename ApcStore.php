@@ -114,11 +114,10 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	 */
 	function flush()
 	{
-		try {
-			apc_clear_cache("user");
-		} catch (\Exception $e) {
-			// APCu doesn't allow arguments
+		if (extension_loaded("apcu")) {
 			apc_clear_cache();
+		} else {
+			apc_clear_cache('user');
 		}
 		if ($this->ttlFix) {
 			unset($this->ttls);
