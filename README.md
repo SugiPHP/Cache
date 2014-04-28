@@ -1,7 +1,7 @@
 Cache
 =====
 
-SugiPHP cache component provides a simple and unified API for several caching systems like APC, Memcached and 
+SugiPHP cache component provides a simple and unified API for several caching systems like APC, Memcached and
 file based cache. Future versions will include support for DB stores.
 
 One of the most important features of the caching systems is invalidating items after a specified period of time.
@@ -9,8 +9,8 @@ This will give you the ability to cache some time consuming queries like the tot
 and not worry about if some advert is deleted or some adverts are posted, but instead set a time after which that
 number is invalidated and needs to be refreshed.
 
-One other feature is that no matter if the store is actually running (caching items) or not it will not produce 
-any errors or exceptions. Instead it will return NULL on any get requests. In the above example this means that 
+One other feature is that no matter if the store is actually running (caching items) or not it will not produce
+any errors or exceptions. Instead it will return NULL on any get requests. In the above example this means that
 your code will be fooled to count adverts every time, maybe slowing down performance, but still working. Your
 code will still work on some development or testing environments where no cache is available nor is needed.
 
@@ -118,8 +118,8 @@ $cache = new Cache($mcStore);
 NullStore and ArrayStore
 ------------------------
 
-Those two classes are not real cache storages, but they are usefull on development environments 
-and for unit tests. ArrayStore caches values only for a lifetime of the script, and thus the 
+Those two classes are not real cache storages, but they are usefull on development environments
+and for unit tests. ArrayStore caches values only for a lifetime of the script, and thus the
 expiration time is not implemented. All store values will be flushed after the script is over.
 
 ```php
