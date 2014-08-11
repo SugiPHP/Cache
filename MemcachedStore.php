@@ -89,7 +89,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	{
 		$result = $this->memcached->get($key);
 
-		if (($result === false) and ($this->memcached->getResultCode() === \Memcached::RES_NOTFOUND)) {
+		if (($result === false) and ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
 			return null;
 		}
 
@@ -102,9 +102,10 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	public function has($key)
 	{
 		$result = $this->memcached->get($key);
-		if (($result === false) and ($this->memcached->getResultCode() === \Memcached::RES_NOTFOUND)) {
+		if (($result === false) and ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -139,6 +140,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 			}
 		}
 		$val = $this->memcached->increment($key, $step);
+
 		// on some servers it will return 0 instead of FALSE
 		return ($val) ? $val : false;
 	}
@@ -158,6 +160,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 			}
 		}
 		$val = $this->memcached->decrement($key, $step);
+
 		// on some servers it will return 0 instead of FALSE
 		return ($val) ? $val : false;
 	}

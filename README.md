@@ -1,6 +1,9 @@
 Cache
 =====
 
+[![Build Status](https://scrutinizer-ci.com/g/SugiPHP/Cache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/SugiPHP/Cache/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SugiPHP/Cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SugiPHP/Cache/?branch=master)
+
 SugiPHP cache component provides a simple and unified API for several caching systems like APC, Memcached and
 file based cache. Future versions will include support for DB stores.
 

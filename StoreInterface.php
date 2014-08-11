@@ -58,11 +58,14 @@ interface StoreInterface
 	 * Removes an item from the cache.
 	 *
 	 * @param  string $key
+	 * @return void
 	 */
 	public function delete($key);
 
 	/**
 	 * Removes all items from the cache.
+	 *
+	 * @return void
 	 */
 	public function flush();
 }

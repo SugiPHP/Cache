@@ -13,8 +13,9 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	// for some optimization reasons in APC it does not invalidate
 	// data on same request. @see https://bugs.php.net/bug.php?id=58084
 	// To fix this behavior we'll use cache to store items along with timestamps
-	protected $ttls = array();
 	public $ttlFix = false;
+
+	protected $ttls = array();
 
 	public function __construct(array $config = array())
 	{
@@ -34,7 +35,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		if ($this->ttlFix) {
 			unset($this->ttls[$key]);
 			// fixing ttl only if it is set
-			if ($res and $ttl) {
+			if ($res && $ttl) {
 				$this->ttls[$key] = microtime(true) + $ttl;
 			}
 		}
@@ -50,10 +51,11 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		if ($this->ttlFix) {
 			unset($this->ttls[$key]);
 			// fixing ttl only if it is set
-			if ($res and $ttl) {
+			if ($res && $ttl) {
 				$this->ttls[$key] = microtime(true) + $ttl;
 			}
 		}
+
 		return $res;
 	}
 
@@ -69,7 +71,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		}
 
 		if ($this->ttlFix) {
-			if (isset($this->ttls[$key]) and $this->ttls[$key] < microtime(true)) {
+			if (isset($this->ttls[$key]) && $this->ttls[$key] < microtime(true)) {
 				unset($this->ttls[$key]);
 				return null;
 			}
@@ -88,7 +90,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		}
 
 		if ($this->ttlFix) {
-			if (isset($this->ttls[$key]) and $this->ttls[$key] < microtime(true)) {
+			if (isset($this->ttls[$key]) && $this->ttls[$key] < microtime(true)) {
 				unset($this->ttls[$key]);
 				return false;
 			}
@@ -117,7 +119,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		if (extension_loaded("apcu")) {
 			apc_clear_cache();
 		} else {
-			apc_clear_cache('user');
+			apc_clear_cache("user");
 		}
 		if ($this->ttlFix) {
 			unset($this->ttls);
