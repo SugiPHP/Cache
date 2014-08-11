@@ -109,7 +109,7 @@ class MemcachedStoreTest extends PHPUnit_Framework_TestCase
 		static::$store->flush();
 		$this->assertFalse(static::$store->has("phpunittestkey"));
 	}
-	
+
 	public function testAdd()
 	{
 		$this->assertTrue(static::$store->add("phpunittestkey", "phpunittestvalue"));

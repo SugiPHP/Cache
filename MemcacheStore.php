@@ -20,7 +20,7 @@ class MemcacheStore implements StoreInterface
 
 	/**
 	 * Creates a Memcache store
-	 * 
+	 *
 	 * @param Memcache $memcache
 	 */
 	public function __construct(Memcache $memcache)
@@ -30,7 +30,7 @@ class MemcacheStore implements StoreInterface
 
 	/**
 	 * Creates MemcacheStore instance
-	 * 
+	 *
 	 * @param  array $config Server Configurations
 	 * @return MemcacheStore
 	 */
@@ -54,7 +54,7 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		return $this->memcache->add($key, $value, 0, $ttl);
 	}
@@ -62,7 +62,7 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		return $this->memcache->set($key, $value, 0, $ttl);
 	}
@@ -70,7 +70,7 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		$result = $this->memcache->get($key);
 
@@ -80,7 +80,7 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		return (!is_null($this->memcache->get($key)));
 	}
@@ -88,7 +88,7 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		$this->memcache->delete($key);
 	}
@@ -96,14 +96,14 @@ class MemcacheStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		$this->memcache->flush();
 	}
 
 	/**
 	 * Checks is the memcache server is running
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function checkRunning()

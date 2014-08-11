@@ -16,20 +16,20 @@ interface IncrementorInterface
 	/**
 	 * Increment stored numeric value by $step.
 	 * If a stored value is not numeric, or there is no such key (not set or expired) the function MUST return FALSE.
-	 * 
+	 *
 	 * @param  string  $key
 	 * @param  integer $step
 	 * @return integer|FALSE - incremented value or FALSE on failure
 	 */
-	function inc($key, $step = 1);
+	public function inc($key, $step = 1);
 
 	/**
 	 * Decrement stored numeric value by $step
 	 * If a stored value is not numeric, or there is no such key (not set or expired) the function MUST return FALSE.
-	 *  
+	 *
 	 * @param  string  $key
 	 * @param  integer $step
 	 * @return integer|FALSE - incremented value or FALSE on failure
 	 */
-	function dec($key, $step = 1);
+	public function dec($key, $step = 1);
 }

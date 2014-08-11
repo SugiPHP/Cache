@@ -28,7 +28,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		$res = apc_add($key, $value, $ttl);
 		if ($this->ttlFix) {
@@ -44,7 +44,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		$res = apc_store($key, $value, $ttl);
 		if ($this->ttlFix) {
@@ -60,7 +60,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		$result = apc_fetch($key, $success);
 
@@ -81,7 +81,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		if (!apc_exists($key)) {
 			return false;
@@ -100,7 +100,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		if (apc_delete($key)) {
 			if ($this->ttlFix) {
@@ -112,7 +112,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		if (extension_loaded("apcu")) {
 			apc_clear_cache();
@@ -127,7 +127,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function inc($key, $step = 1)
+	public function inc($key, $step = 1)
 	{
 		return apc_inc($key, $step);
 	}
@@ -135,7 +135,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function dec($key, $step = 1)
+	public function dec($key, $step = 1)
 	{
 		return apc_dec($key, $step);
 	}
@@ -147,6 +147,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	 */
 	public function checkRunning()
 	{
-		return (function_exists("apc_store") and ini_get("apc.enabled") and ((PHP_SAPI != "cli") or ini_get("apc.enable_cli")));
+		return (function_exists("apc_store") && ini_get("apc.enabled")
+		        && ((PHP_SAPI != "cli") || ini_get("apc.enable_cli")));
 	}
 }

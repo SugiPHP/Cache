@@ -25,7 +25,7 @@ class NotWorkingApcStoreTest extends PHPUnit_Framework_TestCase
 	{
 		if (static::$store->checkRunning()) {
 		 	$this->markTestSkipped("APC is running");
-		}		
+		}
 	}
 
 	public function tearDown()

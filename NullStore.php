@@ -20,7 +20,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		return false;
 	}
@@ -28,7 +28,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		return false;
 	}
@@ -36,7 +36,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		return null;
 	}
@@ -44,7 +44,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		return false;
 	}
@@ -52,7 +52,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		//
 	}
@@ -60,7 +60,7 @@ class NullStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		//
 	}

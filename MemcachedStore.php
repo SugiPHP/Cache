@@ -26,7 +26,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 
 	/**
 	 * Creates a Memcached store
-	 * 
+	 *
 	 * @param Memcached $memcached
 	 */
 	public function __construct(Memcached $memcached)
@@ -36,7 +36,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 
 	/**
 	 * Creates MemcachedStore instance
-	 * 
+	 *
 	 * @param  array $config Server Configurations
 	 * @return MemcachedStore
 	 */
@@ -48,15 +48,14 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 		if (empty($config)) {
 			$host = "127.0.0.1";
 			$port = 11211;
-			
+
 			$memcached->addServer($host, $port);
 		} elseif (empty($config[0])) {
 			// only one server
 			$host = empty($config["host"]) ? "127.0.0.1" : $config["host"];
 			$port = empty($config["port"]) ? 11211 : $config["port"];
 			$weight = empty($config["weight"]) ? 1 : $config["weight"];
-
-			$memcached->addServer($host, $port, $weight);		
+			$memcached->addServer($host, $port, $weight);
 		} else {
 			// multiple servers
 			$memcached->addServers($config);
@@ -70,7 +69,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		return $this->memcached->add($key, $value, $ttl);
 	}
@@ -78,7 +77,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		return $this->memcached->set($key, $value, $ttl);
 	}
@@ -86,21 +85,21 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		$result = $this->memcached->get($key);
 
 		if (($result === false) and ($this->memcached->getResultCode() === \Memcached::RES_NOTFOUND)) {
 			return null;
 		}
-		
+
 		return $result;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		$result = $this->memcached->get($key);
 		if (($result === false) and ($this->memcached->getResultCode() === \Memcached::RES_NOTFOUND)) {
@@ -112,7 +111,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		$this->memcached->delete($key);
 	}
@@ -120,7 +119,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		$this->memcached->flush();
 	}
@@ -128,9 +127,9 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function inc($key, $step = 1)
+	public function inc($key, $step = 1)
 	{
-		// due to a bug in memcached PHP module 
+		// due to a bug in memcached PHP module
 		// https://bugs.php.net/bug.php?id=51434
 		// we'll check if the $key has a non numeric value
 		if ($this->bug51434fix) {
@@ -147,9 +146,9 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * @inheritdoc
 	 */
-	function dec($key, $step = 1)
+	public function dec($key, $step = 1)
 	{
-		// due to a bug in memcached PHP module 
+		// due to a bug in memcached PHP module
 		// https://bugs.php.net/bug.php?id=51434
 		// we'll check if the $key has a non numeric value
 		if ($this->bug51434fix) {
@@ -165,25 +164,25 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 
 	/**
 	 * Checks is the memcache server is running
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function checkRunning()
 	{
 		$servers = $this->memcached->getVersion();
-	
+
 		// this happens when no servers were added
 		if (!$servers) {
 			return false;
 		}
-	
+
 		// at least one server should be running
 		foreach ($servers as $server) {
 			if ($server != "255.255.255") {
 				return true;
 			}
 		}
-	
+
 		return false;
 	}
 }

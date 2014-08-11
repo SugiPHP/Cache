@@ -11,7 +11,7 @@ namespace SugiPHP\Cache;
 /**
  * Array Store
  * Main purpose of this class is to be used in unit testing.
- * Note that no expiration time is implemented! Store will be flushed after the script is over. 
+ * Note that no expiration time is implemented! Store will be flushed after the script is over.
  */
 class ArrayStore implements StoreInterface
 {
@@ -20,7 +20,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		if ($this->has($key)) {
 			return false;
@@ -32,7 +32,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		$this->store[$key] = $value;
 		return true;
@@ -41,7 +41,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		return isset($this->store[$key]) ? $this->store[$key] : null;
 	}
@@ -49,7 +49,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		return isset($this->store[$key]);
 	}
@@ -57,7 +57,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		unset($this->store[$key]);
 	}
@@ -65,7 +65,7 @@ class ArrayStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		$this->store = array();
 	}

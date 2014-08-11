@@ -17,7 +17,7 @@ class FileStore implements StoreInterface
 
 	/**
 	 * Creates a File store
-	 * 
+	 *
 	 * @param string
 	 */
 	public function __construct($path)
@@ -28,7 +28,7 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function add($key, $value, $ttl = 0)
+	public function add($key, $value, $ttl = 0)
 	{
 		if ($this->has($key)) {
 			return false;
@@ -40,7 +40,7 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function set($key, $value, $ttl = 0)
+	public function set($key, $value, $ttl = 0)
 	{
 		$file = $this->filename($key);
 		$expire = ($ttl) ? time() + $ttl : "9999999999";
@@ -53,7 +53,7 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function get($key)
+	public function get($key)
 	{
 		$file = $this->filename($key);
 		if (!is_file($file)) {
@@ -77,7 +77,7 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function has($key)
+	public function has($key)
 	{
 		$res = $this->get($key);
 		return (is_null($res)) ? false : true;
@@ -86,7 +86,7 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		@unlink($this->filename($key));
 	}
@@ -94,11 +94,11 @@ class FileStore implements StoreInterface
 	/**
 	 * @inheritdoc
 	 */
-	function flush()
+	public function flush()
 	{
 		$files = glob($this->path."*.cache");
 		if ($files) {
-			foreach($files as $file) {
+			foreach ($files as $file) {
 				@unlink($file);
 			}
 		}
@@ -106,7 +106,7 @@ class FileStore implements StoreInterface
 
 	/**
 	 * Generates a filename based on the $key parameter
-	 * 
+	 *
 	 * @param  string $key
 	 * @return string
 	 */
