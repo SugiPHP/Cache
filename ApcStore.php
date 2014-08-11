@@ -64,6 +64,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	 */
 	public function get($key)
 	{
+		$success = null;
 		$result = apc_fetch($key, $success);
 
 		if (!$success) {
