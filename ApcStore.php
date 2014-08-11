@@ -71,7 +71,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		}
 
 		if ($this->ttlFix) {
-			if (isset($this->ttls[$key]) && $this->ttls[$key] < microtime(true)) {
+			if (isset($this->ttls[$key]) && ($this->ttls[$key] < microtime(true))) {
 				unset($this->ttls[$key]);
 				return null;
 			}
@@ -90,7 +90,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 		}
 
 		if ($this->ttlFix) {
-			if (isset($this->ttls[$key]) && $this->ttls[$key] < microtime(true)) {
+			if (isset($this->ttls[$key]) && ($this->ttls[$key] < microtime(true))) {
 				unset($this->ttls[$key]);
 				return false;
 			}

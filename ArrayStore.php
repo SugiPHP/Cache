@@ -26,6 +26,7 @@ class ArrayStore implements StoreInterface
 			return false;
 		}
 		$this->store[$key] = $value;
+
 		return true;
 	}
 
@@ -35,6 +36,7 @@ class ArrayStore implements StoreInterface
 	public function set($key, $value, $ttl = 0)
 	{
 		$this->store[$key] = $value;
+
 		return true;
 	}
 

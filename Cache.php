@@ -34,7 +34,7 @@ class Cache
 
 	/**
 	 * Sets key prefix.
-	 * 
+	 *
 	 * @param string $prefix
 	 */
 	public function setPrefix($prefix)
@@ -44,7 +44,7 @@ class Cache
 
 	/**
 	 * Returns key prefix.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getPrefix()
@@ -55,7 +55,7 @@ class Cache
 	/**
 	 * Stores an item in the cache for a specified period of time only if it is not already stored.
 	 * Cache::add() is similar to Cache::set(), but the operation fails if the key already exists.
-	 * 
+	 *
 	 * @param  string  $key
 	 * @param  mixed  $value The value to be stored.
 	 * @param  integer $ttl Time to live in seconds. 0 means to store it for a maximum time possible
@@ -71,7 +71,7 @@ class Cache
 	/**
 	 * Stores an item in the data store
 	 * Cache::set() is similar to Cache::add(), but the operation will not fail if the key already exist.
-	 * 
+	 *
 	 * @param  string $key The key under which to store the value
 	 * @param  mixed $value The value to store
 	 * @param  integer $ttl Expiration time in seconds, after which the value is invalidated (deleted)
@@ -86,7 +86,7 @@ class Cache
 
 	/**
 	 * Fetches a stored variable from the cache
-	 * 
+	 *
 	 * @param  string $key The key used to store the value
 	 * @return mixed Returns NULL if the key does not exist in the store or the value was expired (see $ttl)
 	 */
@@ -100,8 +100,8 @@ class Cache
 
 	/**
 	 * Checks if the key exists
-	 * 
-	 * @param  string $key 
+	 *
+	 * @param  string $key
 	 * @return boolean TRUE if the key exists, otherwise FALSE
 	 */
 	public function has($key)
@@ -113,7 +113,7 @@ class Cache
 
 	/**
 	 * Removes a stored variable from the cache
-	 * 
+	 *
 	 * @param string $key
 	 */
 	public function delete($key)
@@ -134,7 +134,7 @@ class Cache
 	/**
 	 * Increment numeric item's value.
 	 * If there is no such key or the stored value is not numeric FALSE is returned
-	 * 
+	 *
 	 * @param  string $key
 	 * @param  integer $step
 	 * @return integer or FALSE on failure
@@ -148,7 +148,7 @@ class Cache
 		}
 
 		$value = $this->driver->get($key);
-		if (is_null($value) or !is_numeric($value)) {
+		if (is_null($value) || !is_numeric($value)) {
 			return false;
 		}
 		$newValue = $value + $step;
@@ -159,7 +159,7 @@ class Cache
 	/**
 	 * Decrements numeric item's value.
 	 * If there is no such key or the stored value is not numeric FALSE is returned
-	 * 
+	 *
 	 * @param  string $key
 	 * @param  integer $step
 	 * @return integer or FALSE on failure
@@ -173,7 +173,7 @@ class Cache
 		}
 
 		$value = $this->driver->get($key);
-		if (is_null($value) or !is_numeric($value)) {
+		if (is_null($value) || !is_numeric($value)) {
 			return false;
 		}
 		$newValue = $value - $step;

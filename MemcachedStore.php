@@ -89,7 +89,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	{
 		$result = $this->memcached->get($key);
 
-		if (($result === false) and ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
+		if (($result === false) && ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
 			return null;
 		}
 
@@ -102,7 +102,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	public function has($key)
 	{
 		$result = $this->memcached->get($key);
-		if (($result === false) and ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
+		if (($result === false) && ($this->memcached->getResultCode() === Memcached::RES_NOTFOUND)) {
 			return false;
 		}
 
@@ -135,7 +135,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 		// we'll check if the $key has a non numeric value
 		if ($this->bug51434fix) {
 			$value = $this->get($key);
-			if (is_null($value) or !is_numeric($value)) {
+			if (is_null($value) || !is_numeric($value)) {
 				return false;
 			}
 		}
@@ -155,7 +155,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 		// we'll check if the $key has a non numeric value
 		if ($this->bug51434fix) {
 			$value = $this->get($key);
-			if (is_null($value) or !is_numeric($value)) {
+			if (is_null($value) || !is_numeric($value)) {
 				return false;
 			}
 		}

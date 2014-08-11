@@ -79,8 +79,7 @@ class FileStore implements StoreInterface
 	 */
 	public function has($key)
 	{
-		$res = $this->get($key);
-		return (is_null($res)) ? false : true;
+		return (is_null($this->get($key))) ? false : true;
 	}
 
 	/**
