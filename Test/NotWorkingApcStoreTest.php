@@ -7,18 +7,33 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-use SugiPHP\Cache\MemcachedStore as Store;
+namespace SugiPHP\Cache\Test;
 
-class NotWorkingMemcachedStoreTest extends PHPUnit_Framework_TestCase
+use SugiPHP\Cache\ApcStore as Store;
+use PHPUnit_Framework_TestCase;
+
+class NotWorkingApcStoreTest extends PHPUnit_Framework_TestCase
 {
 	public static $store;
 
 	public static function setUpBeforeClass()
 	{
-		if (!class_exists("Memcached")) {
-			static::markTestSkipped("No Memcached");
+		if (!function_exists("apc_store")) {
+			static::markTestSkipped("APC is not available");
 		}
-		static::$store = new Store(new Memcached());
+		static::$store = new Store();
+	}
+
+	public function setUp()
+	{
+		if (static::$store->checkRunning()) {
+		 	$this->markTestSkipped("APC is running");
+		}
+	}
+
+	public function tearDown()
+	{
+		static::$store->delete("phpunittestkey");
 	}
 
 	public function testCheckInstance()

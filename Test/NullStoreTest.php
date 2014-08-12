@@ -7,7 +7,10 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-use SugiPHP\Cache\NullStore;
+namespace SugiPHP\Cache\Test;
+
+use SugiPHP\Cache\NullStore as Store;
+use PHPUnit_Framework_TestCase;
 
 class NullStoreTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +18,7 @@ class NullStoreTest extends PHPUnit_Framework_TestCase
 
 	public static function setUpBeforeClass()
 	{
-		static::$store = new NullStore();
+		static::$store = new Store();
 	}
 
 	public function testCheckInstance()
