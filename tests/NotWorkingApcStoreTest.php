@@ -7,18 +7,33 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-namespace SugiPHP\Cache\Test;
+namespace SugiPHP\Cache;
 
-use SugiPHP\Cache\NullStore as Store;
+use SugiPHP\Cache\ApcStore as Store;
 use PHPUnit_Framework_TestCase;
 
-class NullStoreTest extends PHPUnit_Framework_TestCase
+class NotWorkingApcStoreTest extends PHPUnit_Framework_TestCase
 {
 	public static $store;
 
 	public static function setUpBeforeClass()
 	{
+		if (!function_exists("apc_store")) {
+			static::markTestSkipped("APC is not available");
+		}
 		static::$store = new Store();
+	}
+
+	public function setUp()
+	{
+		if (static::$store->checkRunning()) {
+		 	$this->markTestSkipped("APC is running");
+		}
+	}
+
+	public function tearDown()
+	{
+		static::$store->delete("phpunittestkey");
 	}
 
 	public function testCheckInstance()

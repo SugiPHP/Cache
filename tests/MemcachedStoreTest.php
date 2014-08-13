@@ -7,24 +7,39 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-namespace SugiPHP\Cache\Test;
+namespace SugiPHP\Cache;
 
-use SugiPHP\Cache\Cache;
-use SugiPHP\Cache\ArrayStore;
+use SugiPHP\Cache\MemcachedStore as Store;
 use PHPUnit_Framework_TestCase;
+use Memcached;
 
-class CacheTest extends PHPUnit_Framework_TestCase
+class MemcachedStoreTest extends PHPUnit_Framework_TestCase
 {
 	public static $store;
 
 	public static function setUpBeforeClass()
 	{
-		static::$store = new Cache(new ArrayStore());
+		if (!class_exists("Memcached")) {
+			static::markTestSkipped("No Memcached");
+		}
+		$memcached = new Memcached();
+		$memcached->addServer("127.0.0.1", 11211);
+		static::$store = new Store($memcached);
+		if (!static::$store->checkRunning()) {
+		 	static::markTestSkipped("Could not connect to Memcached");
+		}
+
+		static::$store->bug51434fix = true;
 	}
 
 	public function tearDown()
 	{
 		static::$store->delete("phpunittestkey");
+	}
+
+	public function testCheckInstance()
+	{
+		$this->assertInstanceOf("\SugiPHP\Cache\StoreInterface", static::$store);
 	}
 
 	public function testReturnsNullWhenNotFound()
@@ -49,21 +64,37 @@ class CacheTest extends PHPUnit_Framework_TestCase
 
 	public function testGet()
 	{
-		// get not existg
-		$this->assertNull(static::$store->get("phpunittestkey"));
-		// with default value
-		$this->assertEquals("default", static::$store->get("phpunittestkey", "default"));
-		// set it
 		static::$store->set("phpunittestkey", "phpunittestvalue");
-		// get it
 		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
-		// get with default value
-		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey", "default"));
+	}
+
+	public function testNegativeTTL()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue", -1);
+		$this->assertNull(static::$store->get("phpunittestkey"));
+	}
+
+	public function testTTL()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue", 1);
+		$this->assertTrue(static::$store->has("phpunittestkey"));
+		sleep(1);
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+	}
+
+	public function testTTLNotExpire()
+	{
+		static::$store->set("phpunittestkey", "phpunittestvalue", 2);
+		$this->assertTrue(static::$store->has("phpunittestkey"));
+		sleep(1);
+		$this->assertTrue(static::$store->has("phpunittestkey"));
 	}
 
 	public function testHas()
 	{
-		static::$store->set("phpunittestkey", "phpunittestvalue");
+		static::$store->set("phpunittestkey", "phpunittestvalue", -1);
+		$this->assertFalse(static::$store->has("phpunittestkey"));
+		static::$store->set("phpunittestkey", "phpunittestvalue", 1);
 		$this->assertTrue(static::$store->has("phpunittestkey"));
 	}
 
@@ -135,31 +166,5 @@ class CacheTest extends PHPUnit_Framework_TestCase
 		static::$store->set("phpunittestkey", 7);
 		$this->assertEquals(6, static::$store->dec("phpunittestkey"));
 		$this->assertEquals(4, static::$store->dec("phpunittestkey", 2));
-	}
-
-	public function testPrefix()
-	{
-		// set without prefix
-		static::$store->set("phpunittestkey", "phpunittestvalue");
-		// change prefix
-		static::$store->setPrefix("phpunit_");
-		// check prefix
-		$this->assertEquals("phpunit_", static::$store->getPrefix());
-		// get not existing
-		$this->assertNull(static::$store->get("phpunittestkey"));
-		// set with prefixed
-		static::$store->set("phpunittestkey", "phpunittestvalue2");
-		// check prefixed
-		$this->assertEquals("phpunittestvalue2", static::$store->get("phpunittestkey"));
-		// remove prefix
-		static::$store->setPrefix("");
-		// check prefix is empty
-		$this->assertEquals("", static::$store->getPrefix());
-		// check unprefixed key
-		$this->assertEquals("phpunittestvalue", static::$store->get("phpunittestkey"));
-		// check manualy prefixing the key
-		$this->assertEquals("phpunittestvalue2", static::$store->get("phpunit_phpunittestkey"));
-		// delete prefixed
-		static::$store->delete("phpunit_phpunittestkey");
 	}
 }

@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-namespace SugiPHP\Cache\Test;
+namespace SugiPHP\Cache;
 
 use SugiPHP\Cache\FileStore as Store;
 use PHPUnit_Framework_TestCase;

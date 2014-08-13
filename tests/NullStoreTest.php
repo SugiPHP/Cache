@@ -7,22 +7,18 @@
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
-namespace SugiPHP\Cache\Test;
+namespace SugiPHP\Cache;
 
-use SugiPHP\Cache\MemcachedStore as Store;
+use SugiPHP\Cache\NullStore as Store;
 use PHPUnit_Framework_TestCase;
-use Memcached;
 
-class NotWorkingMemcachedStoreTest extends PHPUnit_Framework_TestCase
+class NullStoreTest extends PHPUnit_Framework_TestCase
 {
 	public static $store;
 
 	public static function setUpBeforeClass()
 	{
-		if (!class_exists("Memcached")) {
-			static::markTestSkipped("No Memcached");
-		}
-		static::$store = new Store(new Memcached());
+		static::$store = new Store();
 	}
 
 	public function testCheckInstance()
