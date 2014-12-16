@@ -144,7 +144,7 @@ class Cache
 	 * @param string $key
 	 * @param integer $step
 	 *
-	 * @return integer or FALSE on failure
+	 * @return integer|false Returns the new incremented value or FALSE on failure
 	 */
 	public function inc($key, $step = 1)
 	{
@@ -170,7 +170,7 @@ class Cache
 	 * @param string $key
 	 * @param integer $step
 	 *
-	 * @return integer or FALSE on failure
+	 * @return integer|false Returns the new decremented value or FALSE on failure
 	 */
 	public function dec($key, $step = 1)
 	{
