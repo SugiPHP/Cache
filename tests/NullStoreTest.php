@@ -1,10 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @category   tests
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * Tests for NullStore class.
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;

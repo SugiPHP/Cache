@@ -1,9 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * Saves cached values in the file.
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;
@@ -26,7 +27,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
@@ -38,7 +39,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
@@ -51,7 +52,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function get($key)
 	{
@@ -75,7 +76,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function has($key)
 	{
@@ -83,7 +84,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function delete($key)
 	{
@@ -91,7 +92,7 @@ class FileStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function flush()
 	{
@@ -106,7 +107,8 @@ class FileStore implements StoreInterface
 	/**
 	 * Generates a filename based on the $key parameter
 	 *
-	 * @param  string $key
+	 * @param string $key
+	 *
 	 * @return string
 	 */
 	protected function filename($key)

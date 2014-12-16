@@ -1,9 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * APC and uAPC store.
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;
@@ -27,7 +28,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
@@ -43,7 +44,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
@@ -60,7 +61,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function get($key)
 	{
@@ -82,7 +83,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function has($key)
 	{
@@ -101,7 +102,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function delete($key)
 	{
@@ -113,7 +114,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function flush()
 	{
@@ -128,7 +129,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function inc($key, $step = 1)
 	{
@@ -136,7 +137,7 @@ class ApcStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function dec($key, $step = 1)
 	{

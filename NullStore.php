@@ -1,9 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * Null (fake) Store.
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;
@@ -18,7 +19,7 @@ namespace SugiPHP\Cache;
 class NullStore implements StoreInterface
 {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
@@ -26,7 +27,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
@@ -34,7 +35,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function get($key)
 	{
@@ -42,7 +43,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function has($key)
 	{
@@ -50,7 +51,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function delete($key)
 	{
@@ -58,7 +59,7 @@ class NullStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function flush()
 	{

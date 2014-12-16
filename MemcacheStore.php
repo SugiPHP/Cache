@@ -1,6 +1,8 @@
 <?php
 /**
- * @package    SugiPHP
+ * Memcache Store. This store is deprecated. Use Memchached store instead.
+ *
+ * @package    SugiPHP.Cache
  * @subpackage Cache
  * @author     Plamen Popov <tzappa@gmail.com>
  * @license    http://opensource.org/licenses/mit-license.php (MIT License)
@@ -29,9 +31,10 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * Creates MemcacheStore instance
+	 * Creates MemcacheStore instance.
 	 *
-	 * @param  array $config Server Configurations
+	 * @param array $config Server Configurations
+	 *
 	 * @return MemcacheStore
 	 */
 	public static function factory(array $config = array())
@@ -52,7 +55,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
@@ -60,7 +63,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
@@ -68,7 +71,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function get($key)
 	{
@@ -78,7 +81,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function has($key)
 	{
@@ -86,7 +89,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function delete($key)
 	{
@@ -94,7 +97,7 @@ class MemcacheStore implements StoreInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function flush()
 	{

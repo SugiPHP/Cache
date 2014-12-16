@@ -1,10 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @category   tests
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * Tests for ApcStore class, when APC is not present
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;

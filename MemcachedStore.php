@@ -1,9 +1,10 @@
 <?php
 /**
- * @package    SugiPHP
- * @subpackage Cache
- * @author     Plamen Popov <tzappa@gmail.com>
- * @license    http://opensource.org/licenses/mit-license.php (MIT License)
+ * Memcached Store
+ *
+ * @package SugiPHP.Cache
+ * @author  Plamen Popov <tzappa@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php (MIT License)
  */
 
 namespace SugiPHP\Cache;
@@ -37,7 +38,8 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	/**
 	 * Creates MemcachedStore instance
 	 *
-	 * @param  array $config Server Configurations
+	 * @param array $config Server Configurations
+	 *
 	 * @return MemcachedStore
 	 */
 	public static function factory(array $config = array())
@@ -67,7 +69,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function add($key, $value, $ttl = 0)
 	{
@@ -75,7 +77,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function set($key, $value, $ttl = 0)
 	{
@@ -83,7 +85,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function get($key)
 	{
@@ -97,7 +99,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function has($key)
 	{
@@ -110,7 +112,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function delete($key)
 	{
@@ -118,7 +120,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function flush()
 	{
@@ -126,7 +128,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function inc($key, $step = 1)
 	{
@@ -146,7 +148,7 @@ class MemcachedStore implements StoreInterface, IncrementorInterface
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function dec($key, $step = 1)
 	{
