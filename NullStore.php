@@ -18,51 +18,51 @@ namespace SugiPHP\Cache;
  */
 class NullStore implements StoreInterface
 {
-	/**
-	 * {@inheritdoc}
-	 */
-	public function add($key, $value, $ttl = 0)
-	{
-		return false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function add($key, $value, $ttl = 0)
+    {
+        return false;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function set($key, $value, $ttl = 0)
-	{
-		return false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function set($key, $value, $ttl = 0)
+    {
+        return false;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function get($key)
-	{
-		return null;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function get($key)
+    {
+        return null;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function has($key)
-	{
-		return false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function has($key)
+    {
+        return false;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function delete($key)
-	{
-		//
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($key)
+    {
+        //
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function flush()
-	{
-		//
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function flush()
+    {
+        //
+    }
 }

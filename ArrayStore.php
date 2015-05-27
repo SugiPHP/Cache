@@ -16,60 +16,60 @@ namespace SugiPHP\Cache;
  */
 class ArrayStore implements StoreInterface
 {
-	protected $store = array();
+    protected $store = array();
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function add($key, $value, $ttl = 0)
-	{
-		if ($this->has($key)) {
-			return false;
-		}
-		$this->store[$key] = $value;
+    /**
+     * {@inheritdoc}
+     */
+    public function add($key, $value, $ttl = 0)
+    {
+        if ($this->has($key)) {
+            return false;
+        }
+        $this->store[$key] = $value;
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function set($key, $value, $ttl = 0)
-	{
-		$this->store[$key] = $value;
+    /**
+     * {@inheritdoc}
+     */
+    public function set($key, $value, $ttl = 0)
+    {
+        $this->store[$key] = $value;
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function get($key)
-	{
-		return isset($this->store[$key]) ? $this->store[$key] : null;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function get($key)
+    {
+        return isset($this->store[$key]) ? $this->store[$key] : null;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function has($key)
-	{
-		return isset($this->store[$key]);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function has($key)
+    {
+        return isset($this->store[$key]);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function delete($key)
-	{
-		unset($this->store[$key]);
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($key)
+    {
+        unset($this->store[$key]);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function flush()
-	{
-		$this->store = array();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function flush()
+    {
+        $this->store = array();
+    }
 }

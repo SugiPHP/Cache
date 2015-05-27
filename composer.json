@@ -2,7 +2,7 @@
     "name": "sugiphp/cache",
     "type": "library",
     "description": "SugiPHP Cache Component",
-    "keywords": ["cache", "sugiphp", "apc", "memcache"],
+    "keywords": ["cache", "apc", "memcache", "memcached"],
     "license": "MIT",
     "authors": [
         {
@@ -17,6 +17,5 @@
         "psr-4": {
             "SugiPHP\\Cache\\": ""
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
