@@ -1,6 +1,6 @@
 <?php
 /**
- * APC and uAPC store.
+ * APC store.
  *
  * @package SugiPHP.Cache
  * @author  Plamen Popov <tzappa@gmail.com>
